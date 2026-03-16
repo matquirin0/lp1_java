@@ -21,11 +21,13 @@ public class Cliente {
     }
 
     //AÇÃO 2: Pagar e adicionar à sacola
-    public void comprarProduto(Produto p, int qtdDesejada){
+    public void comprarProduto(Produto p, int qtdDesejada, Feirante feirante){
         BigDecimal custo = p.getValorProduto().multiply(new BigDecimal(qtdDesejada));
         this.saldo = this.saldo.subtract(custo);
 
-        this.sacola.add(new Produto(p.getNomeProduto(), qtdDesejada, p.getValorProduto());
+        feirante.vender(this, p, qtdDesejada);
+
+        this.sacola.add(new Produto(p.getNomeProduto(), qtdDesejada, p.getValorProduto()));
         System.out.println(nome + " comprou " + qtdDesejada + " " + p.getNomeProduto());
     }
 

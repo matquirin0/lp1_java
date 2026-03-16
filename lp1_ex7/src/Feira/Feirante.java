@@ -20,9 +20,9 @@ public class Feirante {
     }
 
     //AÇÃO 2: Verificar estoque
-    public boolean temEstoque(String nomeProd, int qtdDesejada){
+    public boolean temEstoque(Produto produto, int qtdDesejada){
         for(Produto p : mercadoria){
-            if(p.getNomeProduto().equalsIgnoreCase(nomeProd)){
+            if(p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())){
                 return p.temEstoqueSuficiente(qtdDesejada);
             }
         }
@@ -30,14 +30,17 @@ public class Feirante {
     }
 
     //AÇÃO 3: Realizar a Venda
-    public void vender(Cliente cliente, String nomeProd, int quantidade){
+    public void vender(Cliente cliente, Produto produto, int quantidade){
         for (Produto p : mercadoria){
-            if(p.getNomeProduto().equalsIgnoreCase(nomeProd)){
-                BigDecimal valorVenda = p.calcularValorTotal();
+            if(p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())){
+                BigDecimal valorVenda = p.calcularValorTotal(quantidade);
+                p.reduzirQuantidade(quantidade);
+                this.caixa = this.caixa.add(valorVenda);
             }
         }
     }
 
-
-
+    public void exibirExtratoF(){
+        System.out.println("Saldo do feirante " + nome + ": R$ " + caixa);
+    }
 }

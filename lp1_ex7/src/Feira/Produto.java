@@ -28,7 +28,6 @@ public class Produto {
         this.quantidade -= qtd;
     }
 
-
     public String getNomeProduto(){
         return nomeProduto;
     }
