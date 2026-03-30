@@ -34,4 +34,3 @@ O projeto é dividido em módulos que representam cada lista ou conjunto de exer
 **Professor:** Adriana Jacinto
 
 ---
-## 📝 Resumo dos Principais Exercícios
