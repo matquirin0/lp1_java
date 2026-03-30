@@ -13,7 +13,18 @@ public class Produto {
         this.preco = preco;
     }
 
+    public BigDecimal getPreco(){
+        return preco;
+    }
 
+    public BigDecimal totalProduto(){
+        BigDecimal totalProduto = BigDecimal.ZERO;
+        totalProduto = preco.multiply(BigDecimal.valueOf(quantidade));
+        return totalProduto;
+    }
 
+    public int reporEstoque (int qtd){
+        return qtd += quantidade;
+    }
 
 }
