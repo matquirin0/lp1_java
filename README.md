@@ -1,9 +1,3 @@
-Um bom README é essencial para organizar seus estudos e demonstrar suas habilidades para recrutadores ou outros estudantes. Com base na estrutura de pastas e nos exercícios que você já completou (do `lp1_ex1` ao `lp1_ex7`), preparei um modelo personalizado para o seu repositório **lp1_java**.
-
-Aqui está uma proposta de README estruturada e profissional:
-
----
-
 # 🚀 Linguagem de Programação I (Fatec SJC)
 
 Este repositório contém as atividades práticas e exercícios desenvolvidos durante a disciplina de **Linguagem de Programação I** no curso de Banco de Dados da Fatec São José dos Campos. O objetivo principal é consolidar os fundamentos da linguagem Java e os conceitos de Programação Orientada a Objetos (POO).
