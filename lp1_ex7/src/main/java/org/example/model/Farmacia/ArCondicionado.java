@@ -1,4 +1,4 @@
-package Farmacia;
+package org.example.model.Farmacia;
 
 public class ArCondicionado {
     private String modelo;
@@ -41,6 +41,4 @@ public class ArCondicionado {
         setTemperatura(0);
         return this.estaLigado = false;
     }
-
 }
-

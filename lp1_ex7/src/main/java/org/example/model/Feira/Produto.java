@@ -1,4 +1,4 @@
-package Feira;
+package org.example.model.Feira;
 
 import java.math.BigDecimal;
 

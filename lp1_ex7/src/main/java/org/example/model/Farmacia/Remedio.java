@@ -1,4 +1,4 @@
-package Farmacia;
+package org.example.model.Farmacia;
 
 public class Remedio {
     private String nome;

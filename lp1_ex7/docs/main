@@ -1,0 +1,111 @@
+package Cabeleireiro;
+
+import java.math.BigDecimal;
+
+public class Main {
+    public static void main(String[] args) {
+        Salao meuSalao = new Salao("Medusa Cabelos", new BigDecimal("1000.00"), 12);
+
+        Produto shampoo = new Produto("Shampoo Pós-Química", 10, new BigDecimal("25.50"));
+        Produto mascara = new Produto("Máscara de Hidratação Profunda", 5, new BigDecimal("45.00"));
+        Produto ampola = new Produto("Ampola de Vitaminas", 20, new BigDecimal("15.00"));
+
+        Servico hidratacao = new Servico("Hidratação Completa", "Tratamento capilar intensivo", new BigDecimal("80.00"));
+
+        // Adicionando os produtos ao serviço
+        hidratacao.adicionarProduto(shampoo);
+        hidratacao.adicionarProduto(mascara);
+        hidratacao.adicionarProduto(ampola);
+
+        // Demonstrando os métodos de negócio
+        System.out.println("--- Início do Atendimento ---");
+
+        // Exibindo o estado inicial da unidade
+        meuSalao.exibirRelatórioUnidade();
+        System.out.println("-----------------------------");
+
+        // Realizando a reposição de estoque de um item
+        ampola.reporEstoque(5);
+
+        // Finalizando o atendimento
+        meuSalao.finalizarAtendimento(hidratacao);
+
+        System.out.println("-----------------------------");
+
+        // 6. Alterando a equipe (Simulando a contratação de 2 novos funcionários)
+        meuSalao.alterarEquipe(2);
+
+        // 7. Exibindo o relatório final após as movimentações
+        System.out.println("--- Relatório de Fechamento ---");
+        meuSalao.exibirRelatórioUnidade();
+
+        // Verificando o custo total do item específico para auditoria
+        System.out.println("Valor total em estoque do Shampoo: R$ " + shampoo.totalProduto());
+    }
+}
+
+
+--------------------------------------------------------------
+
+
+package Farmacia;
+
+import Farmacia.ArCondicionado;
+import Farmacia.Remedio;
+
+public class Main {
+    public static void main(String[] args){
+        // Instanciando Ar Condicionado e testando métodos de ação
+        ArCondicionado a = new ArCondicionado("LG", 0);
+        a.ligarAr();
+        a.aumentarTemperatura(20);
+        System.out.println(a.getTemperatura());
+
+        //Instanciando Remedio e testando métodos de ação
+        Remedio dipirona = new Remedio("Dipirona", 15.0, false);
+        Remedio xarope = new Remedio("Xarope Antigripal", 60.0, false);
+        Remedio amoxicilina = new Remedio("Amoxicilina", 120.0, true);
+
+        double precoDipirona = dipirona.desconto(dipirona.getPreco());
+        System.out.println(dipirona.getPreco() + " -> Com desconto: R$" + precoDipirona);
+
+        double precoXarope = xarope.desconto(xarope.getPreco());
+        System.out.println("Xarope: R$" + xarope.getPreco() + " -> Com desconto: R$" + precoXarope);
+
+        dipirona.realizarVenda(false);
+        amoxicilina.realizarVenda(false);
+        amoxicilina.realizarVenda(true);
+    }
+}
+
+-----------------------------------------------------------------------------------
+package Feira;
+
+import java.math.BigDecimal;
+
+public class Main {
+    public static void main(String[] args) {
+        {
+            Cliente c1 = new Cliente("Adriana Jacinto", new BigDecimal("200.00"));
+            Feirante f1 = new Feirante("Matheus Quirino", new BigDecimal("0.00"));
+
+            Produto p1 = new Produto("Alface", 100, new BigDecimal("2.79"));
+            Produto p4 = new Produto("Laranja", 100, new BigDecimal("1.00"));
+
+            // 1. Prepara a banca
+            f1.adicionarMercadoria(p1);
+            f1.adicionarMercadoria(p4);
+
+            f1.exibirExtratoF();
+            c1.exibirExtrato();
+
+            // 2. Realiza as compras (passando o f1 como você definiu na classe Cliente)
+            c1.comprarProduto(p1, 5, f1);
+            c1.comprarProduto(p4, 10, f1);
+
+            // 3. Verifica o resultado
+            c1.exibirExtrato();
+            f1.exibirExtratoF();
+        }
+    }
+}

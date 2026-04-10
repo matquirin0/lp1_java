@@ -1,6 +1,5 @@
-package Cabeleireiro;
+package org.example.model.Cabeleireiro;
 
-import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +24,9 @@ public class Servico {
 
     public BigDecimal calculoTotalServico(){
         BigDecimal totalServico = BigDecimal.ZERO;
-            for (Produto p : produtos){
-                totalServico = totalServico.add(p.totalProduto());
+        for (Produto p : produtos){
+            totalServico = totalServico.add(p.totalProduto());
         }
-    return this.preco.add(totalServico);
+        return this.preco.add(totalServico);
     }
 }

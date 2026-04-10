@@ -1,4 +1,4 @@
-package Farmacia;
+package org.example.model.Farmacia;
 
 public class Produto {
     private String codBarra;
@@ -18,5 +18,4 @@ public class Produto {
     public void setCodBarra(String codBarra) {
         this.codBarra = codBarra;
     }
-
 }

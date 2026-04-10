@@ -1,4 +1,4 @@
-package Cabeleireiro;
+package org.example.model.Cabeleireiro;
 
 import java.math.BigDecimal;
 

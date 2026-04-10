@@ -1,6 +1,4 @@
-package Cabeleireiro;
-
-import Cabeleireiro.Servico;
+package org.example.model.Cabeleireiro;
 
 import java.math.BigDecimal;
 
@@ -29,5 +27,4 @@ public class Salao {
     public void alterarEquipe(int qtd) {
         this.numeroColaboradores += qtd;
     }
-
 }
