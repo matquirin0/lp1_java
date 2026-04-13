@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.SalaoController">
+    <children>
+        <AnchorPane prefHeight="100.0" prefWidth="800.0">
+            <children>
+                <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                    <image>
+                        <Image url="@mulheres.png" />
+                    </image>
+                </ImageView>
+                <Label alignment="CENTER" layoutX="100.0" layoutY="35.0" prefWidth="600.0" text="GESTÃO DO SALÃO" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="35.0">
+                    <font>
+                        <Font name="Segoe UI Bold" size="40.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <HBox alignment="CENTER" spacing="50.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="350.0" prefWidth="350.0" spacing="20.0" style="-fx-background-color: #D3D3D3; -fx-background-radius: 15; -fx-border-color: #FC0FC0; -fx-border-width: 3; -fx-border-radius: 15;">
+                    <children>
+                        <Label text="DADOS DA UNIDADE">
+                            <font>
+                                <Font name="Segoe UI Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="labelUnidade" text="Unidade: Medusa Cabelos">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label fx:id="labelColaboradores" text="Colaboradores: 12">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label fx:id="labelSaldo" style="-fx-font-weight: bold; -fx-font-size: 22px;" text="Saldo: R$ 1.000,00" />
+                    </children>
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </padding>
+                </VBox>
+
+                <VBox alignment="CENTER" prefHeight="350.0" prefWidth="350.0" spacing="20.0" style="-fx-background-color: #D3D3D3; -fx-background-radius: 15;">
+                    <children>
+                        <Label text="AÇÕES">
+                            <font>
+                                <Font name="Segoe UI Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#finalizarAtendimento" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #4F4F4F; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" text="Finalizar Atendimento" />
+                        <Button mnemonicParsing="false" onAction="#contratarColaborador" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #4F4F4F; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" text="Contratar (+1)" />
+                    </children>
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <HBox alignment="BOTTOM_LEFT" maxWidth="1.7976931348623157E308">
+            <children>
+                <Button mnemonicParsing="false" onAction="#voltarDashboard" style="-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-font-weight: bold;" text="VOLTAR AO MENU">
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="20.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>

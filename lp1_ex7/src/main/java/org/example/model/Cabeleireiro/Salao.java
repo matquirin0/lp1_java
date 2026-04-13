@@ -13,6 +13,14 @@ public class Salao {
         this.numeroColaboradores = numeroColaboradores;
     }
 
+    public int getNumeroColaboradores(){
+        return numeroColaboradores;
+    }
+
+    public void setNumeroColaboradores(int numeroColaboradores){
+        this.numeroColaboradores = numeroColaboradores;
+    }
+
     public BigDecimal finalizarAtendimento(Servico s){
         BigDecimal valorTotal = s.calculoTotalServico();
         return this.saldoTotal = this.saldoTotal.add(valorTotal);
