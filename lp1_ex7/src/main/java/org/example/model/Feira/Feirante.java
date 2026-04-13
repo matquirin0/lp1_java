@@ -14,12 +14,14 @@ public class Feirante {
         this.caixa = caixa;
     }
 
-    //AÇÃO 1: Adicionar mercadoria
+    public BigDecimal getCaixa() {
+        return caixa;
+    }
+
     public void adicionarMercadoria(Produto p){
         this.mercadoria.add(p);
     }
 
-    //AÇÃO 2: Verificar estoque
     public boolean temEstoque(Produto produto, int qtdDesejada){
         for(Produto p : mercadoria){
             if(p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())){
@@ -29,13 +31,22 @@ public class Feirante {
         return false;
     }
 
-    //AÇÃO 3: Realizar a Venda
     public void vender(Cliente cliente, Produto produto, int quantidade){
         for (Produto p : mercadoria){
             if(p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())){
                 BigDecimal valorVenda = p.calcularValorTotal(quantidade);
                 p.reduzirQuantidade(quantidade);
                 this.caixa = this.caixa.add(valorVenda);
+            }
+        }
+    }
+
+    public void estornarVenda(Produto produto, int quantidade) {
+        for (Produto p : mercadoria) {
+            if (p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())) {
+                BigDecimal valorEstorno = p.calcularValorTotal(quantidade);
+                this.caixa = this.caixa.subtract(valorEstorno);
+                p.reporEstoque(quantidade);
             }
         }
     }

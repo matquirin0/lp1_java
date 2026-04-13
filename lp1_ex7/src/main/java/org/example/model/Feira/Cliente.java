@@ -15,12 +15,16 @@ public class Cliente {
         this.sacola = new ArrayList<>();
     }
 
-    //AÇÃO 1: Verifica se o cliente tem saldo;
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+
     public boolean temSaldo(BigDecimal valorTotal){
         return this.saldo.compareTo(valorTotal) >= 0;
     }
 
-    //AÇÃO 2: Pagar e adicionar à sacola
+
     public void comprarProduto(Produto p, int qtdDesejada, Feirante feirante){
         BigDecimal custo = p.getValorProduto().multiply(new BigDecimal(qtdDesejada));
         this.saldo = this.saldo.subtract(custo);
@@ -31,9 +35,14 @@ public class Cliente {
         System.out.println(nome + " comprou " + qtdDesejada + " " + p.getNomeProduto());
     }
 
-    //AÇÃO 3: Exibir extrato
     public void exibirExtrato(){
         System.out.println("Saldo de " + nome + ": R$ " + saldo);
     }
 
+    public void devolverProduto(Produto p, int qtd, Feirante f) {
+        BigDecimal valorEstorno = p.getValorProduto().multiply(new BigDecimal(qtd));
+        this.saldo = this.saldo.add(valorEstorno); // Recebe dinheiro de volta
+        f.estornarVenda(p, qtd); // Avisa o feirante para estornar
+        // Lógica adicional para remover da sacola se necessário
+    }
 }

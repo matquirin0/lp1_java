@@ -13,21 +13,6 @@ public class Produto {
         this.valorProduto = valorProduto;
     }
 
-    // AÇÃO 1: Verificar se uma quantidade específica está disponível
-    public boolean temEstoqueSuficiente(int qtdDesejada){
-        return this.quantidade >= qtdDesejada;
-    }
-
-    // AÇÃO 2: Calcular o subtotal baseado em uma quantidade
-    public BigDecimal calcularValorTotal(int qtd){
-        return this.valorProduto.multiply(new BigDecimal(qtd));
-    }
-
-    //AÇÃO 3: Reduzir a quantidade de estoque após uma venda
-    public void reduzirQuantidade(int qtd){
-        this.quantidade -= qtd;
-    }
-
     public String getNomeProduto(){
         return nomeProduto;
     }
@@ -35,4 +20,23 @@ public class Produto {
     public BigDecimal getValorProduto() {
         return valorProduto;
     }
+
+    // AÇÃO 1: Verificar se uma quantidade específica está disponível
+    public boolean temEstoqueSuficiente(int qtdDesejada){
+        return this.quantidade >= qtdDesejada;
+    }
+
+    public BigDecimal calcularValorTotal(int qtd){
+        return this.valorProduto.multiply(new BigDecimal(qtd));
+    }
+
+    public void reduzirQuantidade(int qtd){
+        this.quantidade -= qtd;
+    }
+
+    public void reporEstoque(int qtd) {
+        this.quantidade += qtd; // Apenas o modelo mexe no dado bruto
+    }
+
+
 }
