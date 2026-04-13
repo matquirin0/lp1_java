@@ -11,6 +11,10 @@ public class ArCondicionado {
         this.temperatura = temperatura;
     }
 
+    public boolean getEstaLigado(){
+        return estaLigado;
+    }
+
     public int getTemperatura(){
         return temperatura;
     }

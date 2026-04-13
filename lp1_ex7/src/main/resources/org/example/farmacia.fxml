@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.FarmaciaController">
+  <children>
+    <VBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0">
+      <children>
+        <Label text="SISTEMA FARMÁCIA" textAlignment="CENTER">
+          <font><Font name="Segoe UI Bold" size="40.0" /></font>
+        </Label>
+      </children>
+    </VBox>
+
+    <Region VBox.vgrow="ALWAYS" />
+
+    <HBox alignment="CENTER" spacing="50.0">
+      <children>
+        <VBox alignment="TOP_CENTER" maxHeight="400.0" maxWidth="250.0" minHeight="400.0" minWidth="250.0" prefHeight="400.0" prefWidth="250.0" spacing="15.0" style="-fx-background-color: #BDBDBD; -fx-background-radius: 5;">
+          <children>
+            <Region prefHeight="20.0" />
+            <VBox alignment="CENTER" maxHeight="120.0" maxWidth="180.0" minHeight="120.0" minWidth="180.0" prefHeight="120.0" prefWidth="180.0" style="-fx-background-color: white;">
+              <children>
+                <Label fx:id="labelTemperatura" text="24 C">
+                  <font><Font name="Segoe UI" size="40.0" /></font>
+                </Label>
+              </children>
+            </VBox>
+
+            <HBox alignment="CENTER_LEFT" prefWidth="180.0">
+              <VBox.margin><Insets left="35.0" /></VBox.margin>
+              <children>
+                <Button onAction="#onToggleAr" prefHeight="50.0" prefWidth="75.0" style="-fx-background-color: #D3D3D3; -fx-background-radius: 0;" text="ON/OFF" />
+              </children>
+            </HBox>
+
+            <HBox alignment="CENTER" spacing="20.0">
+              <children>
+                <Button onAction="#onAumentarTemp" prefHeight="50.0" prefWidth="75.0" style="-fx-background-color: #D3D3D3; -fx-background-radius: 0; -fx-font-weight: bold; -fx-font-size: 20px;" text="+" />
+                <Button onAction="#onDiminuirTemp" prefHeight="50.0" prefWidth="75.0" style="-fx-background-color: #D3D3D3; -fx-background-radius: 0; -fx-font-weight: bold; -fx-font-size: 20px;" text="-" />
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+
+        <VBox alignment="CENTER" maxHeight="400.0" maxWidth="350.0" minHeight="400.0" minWidth="350.0" prefHeight="400.0" prefWidth="350.0" spacing="10.0" style="-fx-background-color: #D3D3D3; -fx-background-radius: 10; -fx-padding: 15; -fx-border-color: #0078D7; -fx-border-width: 2;">
+          <children>
+            <Label text="BALCÃO DE VENDAS">
+              <font><Font name="Segoe UI Bold" size="18.0" /></font>
+            </Label>
+
+            <CheckBox fx:id="checkReceita" text="Apresentou Receita Médica?" />
+
+            <VBox spacing="8.0">
+              <children>
+                <Button maxWidth="Infinity" onAction="#adicionarAmoxicilina" text="AMOXICILINA - R$ 120,00" />
+                <Button maxWidth="Infinity" onAction="#adicionarDipirona" text="DIPIRONA - R$ 15,00" />
+                <Button maxWidth="Infinity" onAction="#adicionarParacetamol" text="PARACETAMOL - R$ 20,00" />
+              </children>
+            </VBox>
+
+            <Separator />
+
+            <Label fx:id="labelTotalCarrinho" text="Total: R$ 0.00">
+              <font><Font name="Segoe UI Bold" size="20.0" /></font>
+            </Label>
+            <Button onAction="#onFinalizarVenda" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2e7d32; -fx-text-fill: white; -fx-font-weight: bold;" text="FINALIZAR COMPRA" />
+            <Label fx:id="labelStatusVenda" text="..." />
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+
+    <Region VBox.vgrow="ALWAYS" />
+
+    <HBox alignment="BOTTOM_LEFT">
+      <children>
+        <Button onAction="#voltarDashboard" style="-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-font-weight: bold;" text="VOLTAR AO MENU">
+          <HBox.margin><Insets bottom="30.0" left="20.0" /></HBox.margin>
+        </Button>
+      </children>
+    </HBox>
+  </children>
+</VBox>

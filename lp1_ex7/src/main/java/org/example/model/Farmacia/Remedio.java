@@ -11,6 +11,10 @@ public class Remedio {
         this.pedeReceita = pedeReceita;
     }
 
+    public String getNome(){
+        return nome;
+    }
+
     public double getPreco(){
         return preco;
     }
@@ -44,4 +48,13 @@ public class Remedio {
             System.out.println("ALERTA: " + this.nome + " exige retenção de receita.");
         }
     }
+
+    public boolean podeVender(boolean temReceita) {
+        if (this.pedeReceita) {
+            return temReceita;
+        }
+        return true;
+    }
+
+
 }
