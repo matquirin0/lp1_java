@@ -1,61 +1,95 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.App;
-import org.example.model.Feira.Cliente;
-import org.example.model.Feira.Feirante;
-import org.example.model.Feira.Produto;
+import org.example.model.Feira.*;
+
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class FeiraController {
 
-    @FXML private Label labelCaixaFeirante;
-    @FXML private Label labelSaldoCliente;
+    @FXML private TableView<Produto> tabelaBarraca;
+    @FXML private TableColumn<Produto, String> colNomeBarraca;
+    @FXML private TableColumn<Produto, Integer> colQtdBarraca;
+    @FXML private TableColumn<Produto, Double> colPrecoBarraca;
 
-    // Modelos instanciados
-    private Feirante feirante = new Feirante("Matheus Quirino", BigDecimal.ZERO);
-    private Cliente cliente = new Cliente("Adriana Jacinto", new BigDecimal("200.00"));
+    @FXML private TableView<Produto> tabelaSacola;
+    @FXML private TableColumn<Produto, String> colNomeSacola;
+    @FXML private TableColumn<Produto, Integer> colQtdSacola;
+    @FXML private TableColumn<Produto, Double> colPrecoSacola;
 
-    // Os 3 produtos solicitados
-    private Produto alface = new Produto("Alface", 50, new BigDecimal("2.79"));
-    private Produto tomate = new Produto("Tomate", 30, new BigDecimal("5.50"));
-    private Produto banana = new Produto("Banana", 40, new BigDecimal("4.20"));
+    @FXML private Label lblCaixaFeirante;
+    @FXML private Label lblCarteiraCliente;
+    @FXML private Label lblStatus;
+    @FXML private TextField txtQuantidade;
+
+    private Feirante feirante;
+    private Cliente cliente;
 
     @FXML
     public void initialize() {
-        feirante.adicionarMercadoria(alface);
-        feirante.adicionarMercadoria(tomate);
-        feirante.adicionarMercadoria(banana);
-        atualizarInterface();
+        feirante = new Feirante("Seu João", 0.0, new ArrayList<>());
+        cliente = new Cliente("Matheus", 100.0, new ArrayList<>());
+
+        feirante.getBarraca().add(new Produto("Maçã", 10, 2.50));
+        feirante.getBarraca().add(new Produto("Banana", 15, 1.80));
+        feirante.getBarraca().add(new Produto("Pastel", 5, 8.00));
+
+        colNomeBarraca.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colQtdBarraca.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colPrecoBarraca.setCellValueFactory(new PropertyValueFactory<>("valor"));
+
+        colNomeSacola.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colQtdSacola.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colPrecoSacola.setCellValueFactory(new PropertyValueFactory<>("valor"));
+
+        atualizarTela();
     }
 
-    // Ações de COMPRA
-    @FXML private void comprarAlface() { processarAcao(alface, true); }
-    @FXML private void comprarTomate() { processarAcao(tomate, true); }
-    @FXML private void comprarBanana() { processarAcao(banana, true); }
+    @FXML
+    private void handleComprar() {
+        Produto selecionado = tabelaBarraca.getSelectionModel().getSelectedItem();
 
-    // Ações de DEVOLUÇÃO (Retirar por engano)
-    @FXML private void devolverAlface() { processarAcao(alface, false); }
-    @FXML private void devolverTomate() { processarAcao(tomate, false); }
-    @FXML private void devolverBanana() { processarAcao(banana, false); }
-
-    private void processarAcao(Produto p, boolean isCompra) {
-        if (isCompra) {
-            if (p.temEstoqueSuficiente(1) && cliente.temSaldo(p.getValorProduto())) {
-                cliente.comprarProduto(p, 1, feirante);
-            }
-        } else {
-            // Lógica de estorno: Cliente devolve o produto e o dinheiro retorna
-            cliente.devolverProduto(p, 1, feirante);
+        if (selecionado == null) {
+            lblStatus.setText("Selecione um produto na tabela!");
+            return;
         }
-        atualizarInterface();
+
+        try {
+            int qtd = Integer.parseInt(txtQuantidade.getText());
+            String resultado = cliente.comprarProduto(feirante, selecionado.getNome(), qtd);
+
+            lblStatus.setText(resultado);
+            atualizarTela();
+
+        } catch (NumberFormatException e) {
+            lblStatus.setText("Quantidade inválida!");
+        }
     }
 
-    private void atualizarInterface() {
-        labelCaixaFeirante.setText("Caixa: R$ " + feirante.getCaixa());
-        labelSaldoCliente.setText("Saldo: R$ " + cliente.getSaldo());
+    @FXML
+    private void handleReporEstoque() {
+        Produto selecionado = tabelaBarraca.getSelectionModel().getSelectedItem();
+        if (selecionado != null) {
+            selecionado.adicionarEstoque(5);
+            lblStatus.setText("Reposto 5 unidades de " + selecionado.getNome());
+            atualizarTela();
+        }
+    }
+
+    private void atualizarTela() {
+        tabelaBarraca.setItems(FXCollections.observableArrayList(feirante.getBarraca()));
+        tabelaSacola.setItems(FXCollections.observableArrayList(cliente.getSacola()));
+
+        lblCaixaFeirante.setText(String.format("Caixa Feirante: R$ %.2f", feirante.getCaixa()));
+        lblCarteiraCliente.setText(String.format("Sua Carteira: R$ %.2f", cliente.getCarteira()));
+
+        tabelaBarraca.refresh();
+        tabelaSacola.refresh();
     }
 
     @FXML

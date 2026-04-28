@@ -1,57 +1,64 @@
 package org.example.model.Feira;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Feirante {
     private String nome;
-    private List<Produto> mercadoria = new ArrayList<>();
-    private BigDecimal caixa;
+    private double caixa;
+    private List<Produto> barraca = new ArrayList<>();
 
-    public Feirante(String nome, BigDecimal caixa){
+    public Feirante(String nome, double caixa, List<Produto> barraca) {
         this.nome = nome;
         this.caixa = caixa;
+        this.barraca = barraca;
     }
 
-    public BigDecimal getCaixa() {
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getCaixa() {
         return caixa;
     }
 
-    public void adicionarMercadoria(Produto p){
-        this.mercadoria.add(p);
+    public void setCaixa(double caixa) {
+        this.caixa = caixa;
     }
 
-    public boolean temEstoque(Produto produto, int qtdDesejada){
-        for(Produto p : mercadoria){
-            if(p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())){
-                return p.temEstoqueSuficiente(qtdDesejada);
+    public List<Produto> getBarraca() {
+        return barraca;
+    }
+
+    public void setBarraca(List<Produto> barraca) {
+        this.barraca = barraca;
+    }
+
+    public Produto buscarProdutoNaBarraca (String nome){
+        for (Produto p: barraca){
+            if (p.getNome().equalsIgnoreCase(nome)) {
+                return p;
             }
         }
-        return false;
+        return null;
     }
 
-    public void vender(Cliente cliente, Produto produto, int quantidade){
-        for (Produto p : mercadoria){
-            if(p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())){
-                BigDecimal valorVenda = p.calcularValorTotal(quantidade);
-                p.reduzirQuantidade(quantidade);
-                this.caixa = this.caixa.add(valorVenda);
+    public void receberPagamento(double valor){
+        this.caixa += valor;
+    }
+
+    public void atualizarEstoqueBarraca(){
+        for (int i = 0; i < barraca.size(); i++){
+            Produto p = barraca.get(i);
+            if (p.getQuantidade() <= 0){
+                barraca.remove(i);
+                i--;
             }
         }
     }
 
-    public void estornarVenda(Produto produto, int quantidade) {
-        for (Produto p : mercadoria) {
-            if (p.getNomeProduto().equalsIgnoreCase(produto.getNomeProduto())) {
-                BigDecimal valorEstorno = p.calcularValorTotal(quantidade);
-                this.caixa = this.caixa.subtract(valorEstorno);
-                p.reporEstoque(quantidade);
-            }
-        }
-    }
-
-    public void exibirExtratoF(){
-        System.out.println("Saldo do feirante " + nome + ": R$ " + caixa);
-    }
 }

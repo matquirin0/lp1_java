@@ -1,48 +1,70 @@
 package org.example.model.Feira;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
     private String nome;
-    private BigDecimal saldo;
+    private double carteira;
     private List<Produto> sacola = new ArrayList<>();
 
-    public Cliente(String nome, BigDecimal saldo){
+    public Cliente(String nome, double carteira, List<Produto> sacola) {
         this.nome = nome;
-        this.saldo = saldo;
-        this.sacola = new ArrayList<>();
+        this.carteira = carteira;
+        this.sacola = sacola;
     }
 
-    public BigDecimal getSaldo() {
-        return saldo;
+    public String getNome() {
+        return nome;
     }
 
-
-    public boolean temSaldo(BigDecimal valorTotal){
-        return this.saldo.compareTo(valorTotal) >= 0;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-
-    public void comprarProduto(Produto p, int qtdDesejada, Feirante feirante){
-        BigDecimal custo = p.getValorProduto().multiply(new BigDecimal(qtdDesejada));
-        this.saldo = this.saldo.subtract(custo);
-
-        feirante.vender(this, p, qtdDesejada);
-
-        this.sacola.add(new Produto(p.getNomeProduto(), qtdDesejada, p.getValorProduto()));
-        System.out.println(nome + " comprou " + qtdDesejada + " " + p.getNomeProduto());
+    public double getCarteira() {
+        return carteira;
     }
 
-    public void exibirExtrato(){
-        System.out.println("Saldo de " + nome + ": R$ " + saldo);
+    public void setCarteira(double carteira) {
+        this.carteira = carteira;
     }
 
-    public void devolverProduto(Produto p, int qtd, Feirante f) {
-        BigDecimal valorEstorno = p.getValorProduto().multiply(new BigDecimal(qtd));
-        this.saldo = this.saldo.add(valorEstorno); // Recebe dinheiro de volta
-        f.estornarVenda(p, qtd); // Avisa o feirante para estornar
-        // Lógica adicional para remover da sacola se necessário
+    public List<Produto> getSacola() {
+        return sacola;
+    }
+
+    public void setSacola(List<Produto> sacola) {
+        this.sacola = sacola;
+    }
+
+    public boolean verificarSaldo(double valor){
+        return this.carteira >= valor;
+    }
+
+    public void adicionarNaSacola(Produto p, int qtd){
+        this.sacola.add(new Produto(p.getNome(), qtd, p.getValor()));
+    }
+
+    public String comprarProduto(Feirante feirante, String nomeProduto, int qtd){
+        Produto p = feirante.buscarProdutoNaBarraca(nomeProduto);
+
+
+        if (p == null) return "Produto não encontrado!";
+
+
+        double custoTotal = p.calcularTotal(qtd);
+
+        if (!verificarSaldo(custoTotal)) return "Saldo insuficiente!";
+
+        if(p.reduzirEstoque(qtd)){
+            this.carteira -= custoTotal;
+            feirante.receberPagamento(custoTotal);
+            adicionarNaSacola(p, qtd);
+            feirante.atualizarEstoqueBarraca();
+            return "Compra realiada com sucesso!";
+        }
+
+        return "Quantidade indisponível no estoque!";
     }
 }

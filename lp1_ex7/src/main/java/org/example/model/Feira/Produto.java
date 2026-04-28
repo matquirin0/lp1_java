@@ -1,42 +1,54 @@
 package org.example.model.Feira;
 
-import java.math.BigDecimal;
-
 public class Produto {
-    private String nomeProduto;
+    private String nome;
     private int quantidade;
-    private BigDecimal valorProduto;
+    private double valor;
 
-    public Produto(String nomeProduto,int quantidade, BigDecimal valorProduto){
-        this.nomeProduto = nomeProduto;
+    public Produto(String nome, int quantidade, double valor) {
+        this.nome = nome;
         this.quantidade = quantidade;
-        this.valorProduto = valorProduto;
+        this.valor = valor;
     }
 
-    public String getNomeProduto(){
-        return nomeProduto;
+    public String getNome() {
+        return nome;
     }
 
-    public BigDecimal getValorProduto() {
-        return valorProduto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    // AÇÃO 1: Verificar se uma quantidade específica está disponível
-    public boolean temEstoqueSuficiente(int qtdDesejada){
-        return this.quantidade >= qtdDesejada;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public BigDecimal calcularValorTotal(int qtd){
-        return this.valorProduto.multiply(new BigDecimal(qtd));
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
-    public void reduzirQuantidade(int qtd){
-        this.quantidade -= qtd;
+    public double getValor() {
+        return valor;
     }
 
-    public void reporEstoque(int qtd) {
-        this.quantidade += qtd; // Apenas o modelo mexe no dado bruto
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
+    public boolean reduzirEstoque(int qtd){
+        if (this.quantidade >= qtd){
+            this.quantidade -= qtd;
+            return true;
+        }
+        return false;
+    }
+
+    public int adicionarEstoque(int qtd){
+        return quantidade += qtd;
+    }
+
+    public double calcularTotal(int qtd){
+        return this.valor * qtd;
+    }
 
 }
